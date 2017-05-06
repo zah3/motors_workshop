@@ -7,6 +7,9 @@
             Tutaj masz możliwość edycji, dodawania, usuwania aktualności, które wyświetlają się na Twojej stronie, jeśli brakuje w nich funkcjonalności, która by Ciebie interesowała to skontaktuj się ze swoim developerem.
         </p>
     </div>
+    <div class="form">
+        {{ form(form) }}
+    </div>
     {% for new in news %}
         <div class="blogItem">
             <div class="blogItemContent" >
@@ -18,7 +21,7 @@
             </div>
             <div style="margin-top: 30px">
                 <a href="/admin/news/edit/{{ new.id }}"><button class="forSaleButton" style="vertical-align:middle"><span>Edytuj</span></button></a>
-                <a href=""><button class="forSaleButton" style="vertical-align:middle"><span>Usuń</span></button></a>
+                <a href="/admin/news/delete/{{ new.id }}"><button class="forSaleButton" style="vertical-align:middle"><span>Usuń</span></button></a>
             </div>
 
             <div class="blogItemGallery" >

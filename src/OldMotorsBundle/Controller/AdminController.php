@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
+use OldMotorsBundle\Entity\News;
 
 /**
  * Class AdminController
@@ -27,12 +28,34 @@ class AdminController extends Controller
      * @Route("/news")
      * @Template("OldMotorsBundle:Admin/News:all.html.twig")
      */
-    public function allNewsAction()
+    public function allNewsAction(Request $request)
     {
         $repository = $this->getDoctrine()->getRepository('OldMotorsBundle:News');
         $allNews = $repository->findAll();
-        return array ( 'news' => $allNews);
+
+        $news = new News();
+        $news->setDate(new \DateTime('now'));
+
+        $form = $this
+            ->createFormBuilder($news)
+            ->add('date', 'datetime')
+            ->add('title', 'text')
+            ->add('content','textarea')
+            ->add('Dodaj', 'submit')
+            ->getForm();
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $news = $form->getData();
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($news);
+            $em->flush();
+
+            return $this->redirectToRoute('oldmotors_admin_allnews');
+        }
+        return array ( 'news' => $allNews,'form' => $form->createView() );
     }
+
     /**
      * @Route("/news/edit/{id}")
      * @Template("OldMotorsBundle:Admin/News:edit.html.twig")
@@ -63,5 +86,26 @@ class AdminController extends Controller
             return $this->redirectToRoute('oldmotors_admin_allnews');
         }
         return [ 'form' => $form->createView()];
+    }
+
+    /**
+     * @Route("/news/delete/{id}")
+     */
+    public function deleteAddressAction($id)
+    {
+        $news = $this
+            ->getDoctrine()
+            ->getRepository('OldMotorsBundle:News')
+            ->find($id);
+        if(!$news){
+            throw $this
+                ->createNotFoundException('Nie znaleziono aktualności');
+        }
+        $em = $this
+            ->getDoctrine()
+            ->getManager();
+        $em->remove($news);
+        $em->flush();
+        return $this->redirectToRoute('oldmotors_admin_allnews');
     }
 }
