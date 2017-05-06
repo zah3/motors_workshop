@@ -1,0 +1,22 @@
+{% extends"OldMotorsBundle:Default:index.html.twig"%}
+{% block title %}Nasze motory{% endblock %}
+{% block content%}
+    <div id="content">
+        <h1>Przedstawiamy nasze prace.</h1>
+        <p>
+            Lorem ipsum dolor sit amet, periculis cotidieque definitiones pri et, amet consulatu reprehendunt ei per. In ipsum civibus adversarium vis. Option iudicabit ut pro. Ea suas electram neglegentur sed, solet dicant sed cu. Utinam civibus maiestatis eam at, eos at vocent forensibus. Vocibus corpora est ut.
+            Id nec ridens expetendis. Has ex platonem delicatissimi. Sea id agam aliquando, luptatum expetenda et ius. Mea alia dolor eu. Mel ut dolor blandit contentiones. Sea in iudico munere tibique, ut nec eripuit salutandi cotidieque.
+        </p>
+    </div>
+    {% for motorcycle in all %}
+    <div class="ourMotors">
+        <div>
+            <span class="time" >{{ motorcycle.renovationDate|date("m/d/Y", "Europe/Warsaw") }}</span>
+            <h2>{{ motorcycle.name }}</h2>
+            <div class="ourMotor-item" style="background-image:url('{{ asset('img/3.jpg') }}')">
+            </div>
+            <span class="right-span"><a href="/renovatedMotor/{{ motorcycle.id }}"><span>Więcej</span></a></span>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock%}

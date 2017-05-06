@@ -1,0 +1,39 @@
+{% extends"OldMotorsBundle:Default:index.html.twig"%}
+{% block title %}Aktualności{% endblock %}
+{% block content%}
+    <div id="content">
+        <h1>Co się u nas dzieje </h1>
+        <p>
+            Lorem ipsum dolor sit amet, periculis cotidieque definitiones pri et, amet consulatu reprehendunt ei per. In ipsum civibus adversarium vis. Option iudicabit ut pro. Ea suas electram neglegentur sed, solet dicant sed cu. Utinam civibus maiestatis eam at, eos at vocent forensibus. Vocibus corpora est ut.
+            Id nec ridens expetendis. Has ex platonem delicatissimi. Sea id agam aliquando, luptatum expetenda et ius. Mea alia dolor eu. Mel ut dolor blandit contentiones. Sea in iudico munere tibique, ut nec eripuit salutandi cotidieque.
+        </p>
+    </div>
+    {% for new in news %}
+    <div class="blogItem">
+        <div class="blogItemContent" >
+            <span class="time" >{{ new.date|date("m/d/Y", "Europe/Warsaw") }}</span>
+            <h2>{{ new.title|capitalize }}</h2>
+            <p>
+                {{ new.content }}
+            </p>
+        </div>
+        <div class="blogItemGallery">
+            <div class="row">
+                <a href="{{ asset('img/1.jpg') }}" data-lightbox="image-3" data-title="Lightbox by http://lokeshdhakar.com">
+                    <div class="img-gallery" style="background-image:url('{{ asset('img/1.jpg') }}');"></div>
+                </a>
+                <a href="{{ asset('img/2.jpg') }}" data-lightbox="image-3" data-title="Lightbox by http://lokeshdhakar.com">
+                    <div class="img-gallery" style="background-image:url('{{ asset('img/2.jpg') }}');"></div>
+                </a>
+            </div>
+            <div class="row">
+                <a href="{{ asset('img/3.jpg') }}" data-lightbox="image-3" data-title="Lightbox by http://lokeshdhakar.com">
+                    <div class="img-gallery" style="background-image:url('{{ asset('img/3.jpg') }}');"></div>
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor%}
+{% endblock%}
+
+

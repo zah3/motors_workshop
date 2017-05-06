@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+<head>
+    {% block head%}
+        <meta charset="UTF-8">
+        <title>{% block title%}{% endblock%}</title>
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
+        <link rel="stylesheet" href="{{ asset('css/animate.css') }}" />
+        <link rel="stylesheet" href="{{ asset('css/lightbox.css') }}" />
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+        <link rel="icon" type="image/png"  href="{{ asset('favicon/classic.png') }}" />
+    {% endblock%}
+</head>
+<body>
+{% block menu %}
+    <div id="divNav" class='img'>
+        <ul id="nav">
+            <li {{ (app.request.attributes.get('_route') == 'oldmotors_news_allnews') ? 'class="active"' }}>
+                <a href="/">Strona główna</a>
+            </li>
+            <li {{ (app.request.attributes.get('_route') == 'oldmotors_default_about') ? 'class="active"' }}>
+                <a href="/about">O nas</a>
+            </li>
+            <li {{ (app.request.attributes.get('_route') == 'oldmotors_renovatedmotors_all' or app.request.attributes.get('_route') == 'oldmotors_renovatedmotors_singlerenovatedmotor') ? 'class="active"' }}>
+                <a href="/renovatedMotors">Nasze prace</a>
+            </li>
+
+            <li {{ (app.request.attributes.get('_route') == 'oldmotors_motorsforsale_all' or app.request.attributes.get('_route') == 'oldmotors_motorsforsale_singlemotorforsale') ? 'class="active"' }}>
+                <a href="/motorsForSale">Na sprzedaż</a>
+            </li>
+            <li {{ (app.request.attributes.get('_route') == 'oldmotors_offer_all') ? 'class="active"' }}>
+                <a href="/offers">Usługi</a>
+            </li>
+            <li  {{ (app.request.attributes.get('_route') == 'oldmotors_motorsforrent_all' or app.request.attributes.get('_route') == 'oldmotors_motorsforrent_singlemotorforrent') ? 'class="active"' }}>
+                <a href="/motorsForRent">Wynajem</a>
+            </li>
+            <li {{ (app.request.attributes.get('_route') == 'oldmotors_contact_contact') ? 'class="active"' }}>
+                <a href="/contact">Kontakt</a>
+            </li>
+        </ul>
+        <div id="logoIndex" class="logo">
+        </div>
+    </div>
+{% endblock %}
+<section class="contentBody">
+    {% block content %}
+    {% endblock %}
+</section>
+{% block footer %}
+    <div class="footer">
+        <div class="row footer-stuff">
+            <div class="col-md-6">
+                <STRONG> Znajdź nas na </STRONG>
+                <ul>
+                    <li><img src="{{ asset('icons/tweeter.png') }}"> Tweeter</li>
+                    <li><img src="{{ asset('icons/facebook.png') }}"> Facebook</li>
+                    <li><img src="{{ asset('icons/instagram.png') }}"> Instagram</li>
+                    <li><img src="{{ asset('icons/skype.png') }}"> Skype</li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <strong>©2016 All rights reserved.</strong>
+                <br>
+                Icons <a href="http://www.freepik.com">Designed by Freepik</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+</body>
+<script src="{{ asset('js/jquery-3.1.1.min.js') }}"></script>
+<script src="{{ asset('js/jquery.waypoints.min.js') }}"></script>
+<script src="{{ asset('js/lightbox.js') }}"></script>
+<script src="{{ asset('js/functions.js') }}"></script>
+</html>

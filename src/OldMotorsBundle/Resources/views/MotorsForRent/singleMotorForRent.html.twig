@@ -1,0 +1,46 @@
+{% extends"OldMotorsBundle:Default:index.html.twig"%}
+{% block title %}Na wynajem{% endblock %}
+{% block content%}
+    <div id="content">
+        {{ motor.description }}
+    </div>
+    <div class="text-center end">
+        <div class="row">
+            <div class="col-md-4 details"></div>
+            <div class="col-md-2 details">Nazwa</div>
+            <div class="col-md-1 details">{{ motor.name }}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 details"></div>
+            <div class="col-md-2 details">Rocznik</div>
+            <div class="col-md-1 details">{{ motor.productionDate|date("m/d/Y", "Europe/Warsaw") }}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 details"></div>
+            <div class="col-md-2 details">Kolor</div>
+            <div class="col-md-1 details">{{ motor.color }}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 details"></div>
+            <div class="col-md-2 details">Przebieg</div>
+            <div class="col-md-1 details">{{ motor.mileage }}</div>
+        </div>
+    </div>
+    <div class="blogItem">
+        <div class="blogItemGallery">
+            <div class="row">
+                <a href="{{ asset('img/1.jpg') }}" data-lightbox="image-3" data-title="Lightbox by http://lokeshdhakar.com">
+                    <div class="img-gallery" style="background-image:url('{{ asset('img/1.jpg') }}');"></div>
+                </a>
+                <a href="{{ asset('img/2.jpg') }}" data-lightbox="image-3" data-title="Lightbox by http://lokeshdhakar.com">
+                    <div class="img-gallery" style="background-image:url('{{ asset('img/2.jpg') }}');"></div>
+                </a>
+            </div>
+            <div class="row">
+                <a href="{{ asset('img/3.jpg') }}" data-lightbox="image-3" data-title="Lightbox by http://lokeshdhakar.com">
+                    <div class="img-gallery" style="background-image:url('{{ asset('img/3.jpg') }}');"></div>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock%}

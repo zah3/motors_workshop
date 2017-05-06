@@ -1,0 +1,26 @@
+{% extends"OldMotorsBundle:Default:index.html.twig"%}
+{% block title %}Na sprzedaż{% endblock %}
+{% block content%}
+    <div id="content">
+        Lorem ipsum dolor sit amet, periculis cotidieque definitiones pri et, amet consulatu reprehendunt ei per. In ipsum civibus adversarium vis. Option iudicabit ut pro. Ea suas electram neglegentur sed, solet dicant sed cu. Utinam civibus maiestatis eam at, eos at vocent forensibus. Vocibus corpora est ut.
+        Id nec ridens expetendis. Has ex platonem delicatissimi. Sea id agam aliquando, luptatum expetenda et ius. Mea alia dolor eu. Mel ut dolor blandit contentiones. Sea in iudico munere tibique, ut nec eripuit salutandi cotidieque.
+    </div>
+    <div class="forSale">
+        {% for motor in motors %}
+            {% if loop.index % 2 != 0 %}
+                <div class="row">
+            {% endif %}
+            <div class="col-md-6">
+                <div class="forSaleItem">
+                    <div class="forSaleTitle">{{ motor.name }}</div>
+                    <div class="forSaleImage" style="background-image:url('img/1.jpg');"></div>
+                    <div class="forSaleDescription">{{ motor.description }}</div>
+                    <button class="forSaleButton" style="vertical-align:middle"><a href="/motorForSale/{{ motor.id }}"><span>Więcej</span></a></button>
+                </div>
+            </div>
+            {% if loop.index % 2 == 0 or loop.last %}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock%}

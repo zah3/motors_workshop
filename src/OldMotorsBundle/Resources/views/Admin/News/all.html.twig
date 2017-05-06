@@ -1,0 +1,28 @@
+{% extends"OldMotorsBundle:Admin/index:index.html.twig"%}
+{% block title %}Administracja aktualności{% endblock %}
+{% block content%}
+    <div id="content">
+        <h1>Aktualności</h1>
+        <p>
+            Tutaj masz możliwość edycji, dodawania, usuwania aktualności, które wyświetlają się na Twojej stronie, jeśli brakuje w nich funkcjonalności, która by Ciebie interesowała to skontaktuj się ze swoim developerem.
+        </p>
+    </div>
+    {% for new in news %}
+        <div class="blogItem">
+            <div class="blogItemContent" >
+                <span class="time" >{{ new.date|date("m/d/Y", "Europe/Warsaw") }}</span>
+                <h2>{{ new.title|capitalize }}</h2>
+                <p>
+                    {{ new.content }}
+                </p>
+            </div>
+            <div style="margin-top: 30px">
+                <a href="/admin/news/edit/{{ new.id }}"><button class="forSaleButton" style="vertical-align:middle"><span>Edytuj</span></button></a>
+                <a href=""><button class="forSaleButton" style="vertical-align:middle"><span>Usuń</span></button></a>
+            </div>
+
+            <div class="blogItemGallery" >
+            </div>
+        </div>
+    {% endfor%}
+{% endblock%}
