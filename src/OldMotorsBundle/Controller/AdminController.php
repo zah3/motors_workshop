@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use OldMotorsBundle\Entity\News;
 use OldMotorsBundle\Entity\RenovatedMotors;
 use OldMotorsBundle\Entity\MotorsForSale;
+use OldMotorsBundle\Entity\Offer;
 
 /**
  * Class AdminController
@@ -293,6 +294,90 @@ class AdminController extends Controller
         $em->remove($motor);
         $em->flush();
         return $this->redirectToRoute('oldmotors_admin_allmotorsforsale');
+    }
+
+    // offer
+    /**
+     * @Route("/offers")
+     * @Template("OldMotorsBundle:Admin/Offer:all.html.twig")
+     */
+    public function allOfferAction(Request $request)
+    {
+        $repository = $this->getDoctrine()->getRepository('OldMotorsBundle:Offer');
+        $offers = $repository->findAll();
+
+        $offer = new Offer();
+
+        $form = $this
+            ->createFormBuilder($offer)
+            ->add('name', 'text')
+            ->add('price', 'integer')
+            ->add('description','textarea')
+            ->add('Dodaj', 'submit')
+            ->getForm();
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $offer = $form->getData();
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($offer);
+            $em->flush();
+
+            return $this->redirectToRoute('oldmotors_admin_alloffer');
+        }
+        return array ( 'offers' => $offers,'form' => $form->createView() );
+    }
+
+    /**
+     * @Route("/offers/edit/{id}")
+     * @Template("OldMotorsBundle:Admin/Offer:edit.html.twig")
+     */
+    public function editOfferAction($id, Request $request)
+    {
+        $offer = $this
+            ->getDoctrine()
+            ->getRepository('OldMotorsBundle:Offer')
+            ->find($id);
+        if(!$offer){
+            throw $this->createNotFoundException('Usługa nie została znaleziona');
+        }
+        $form= $this
+            ->createFormBuilder($offer)
+            ->add('name', 'text')
+            ->add('price', 'integer')
+            ->add('description','textarea')
+            ->add('Edytuj', 'submit')
+            ->getForm();
+        $form->handleRequest($request);
+        if ($form->isValid()){
+            $em = $this
+                ->getDoctrine()
+                ->getManager();
+            $em->flush();
+            return $this->redirectToRoute('oldmotors_admin_alloffer');
+        }
+        return [ 'form' => $form->createView()];
+    }
+
+    /**
+     * @Route("/offers/delete/{id}")
+     */
+    public function deleteOfferAction($id)
+    {
+        $offer = $this
+            ->getDoctrine()
+            ->getRepository('OldMotorsBundle:Offer')
+            ->find($id);
+        if(!$offer){
+            throw $this
+                ->createNotFoundException('Nie znaleziono takiego motoru.');
+        }
+        $em = $this
+            ->getDoctrine()
+            ->getManager();
+        $em->remove($offer);
+        $em->flush();
+        return $this->redirectToRoute('oldmotors_admin_alloffer');
     }
 
 }
