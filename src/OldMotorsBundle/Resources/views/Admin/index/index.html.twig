@@ -21,8 +21,8 @@
             <li {{ (app.request.attributes.get('_route') == 'oldmotors_admin_allnews') ? 'class="active"' }}>
                 <a href="/admin/news">Aktualności</a>
             </li>
-            <li {{ (app.request.attributes.get('_route') == 'oldmotors_renovatedmotors_all' or app.request.attributes.get('_route') == 'oldmotors_renovatedmotors_singlerenovatedmotor') ? 'class="active"' }}>
-                <a href="/renovatedMotors">Nasze prace</a>
+            <li {{ (app.request.attributes.get('_route') == 'oldmotors_admin_allrenovatedmotors' or app.request.attributes.get('_route') == 'oldmotors_renovatedmotors_singlerenovatedmotor') ? 'class="active"' }}>
+                <a href="/admin/renovatedMotors">Nasze prace</a>
             </li>
 
             <li {{ (app.request.attributes.get('_route') == 'oldmotors_motorsforsale_all' or app.request.attributes.get('_route') == 'oldmotors_motorsforsale_singlemotorforsale') ? 'class="active"' }}>

@@ -1,0 +1,26 @@
+{% extends"OldMotorsBundle:Admin/index:index.html.twig"%}
+{% block title %}Administracja - nasze prace{% endblock %}
+{% block content%}
+    <div id="content">
+        <h1>Modyfikuj zakładkę "nasze prace"</h1>
+        <p>
+            Poniżej możesz dodać nowy Motor, który został odnowiony w warsztacie.
+        </p>
+        <p style="width: 99vw;"></p>
+    </div>
+    <div class="form">
+        {{ form(form) }}
+    </div>
+    {% for motorcycle in all %}
+        <div class="ourMotors">
+            <div>
+                <span class="time" >{{ motorcycle.renovationDate|date("m/d/Y", "Europe/Warsaw") }}</span>
+                <h2>{{ motorcycle.name }}</h2>
+                <div class="ourMotor-item" style="background-image:url('{{ asset('img/3.jpg') }}')">
+                </div>
+                <a href="/admin/renovatedMotors/edit/{{ motorcycle.id }}"><button class="forSaleButton" style="vertical-align:middle"><span>Edytuj</span></button></a>
+                <a href="/admin/renovatedMotors/delete/{{ motorcycle.id }}"><button class="forSaleButton" style="vertical-align:middle"><span>Usuń</span></button></a>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock%}

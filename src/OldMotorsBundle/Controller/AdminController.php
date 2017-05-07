@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use OldMotorsBundle\Entity\News;
+use OldMotorsBundle\Entity\RenovatedMotors;
 
 /**
  * Class AdminController
@@ -60,7 +61,7 @@ class AdminController extends Controller
      * @Route("/news/edit/{id}")
      * @Template("OldMotorsBundle:Admin/News:edit.html.twig")
      */
-    public function editAction($id, Request $request)
+    public function editNewsAction($id, Request $request)
     {
         $news = $this
             ->getDoctrine()
@@ -71,7 +72,7 @@ class AdminController extends Controller
         }
         $form= $this
             ->createFormBuilder($news)
-            ->setAction($this->generateUrl('oldmotors_admin_edit', ['id' => $news->getId()]))
+            ->setAction($this->generateUrl('oldmotors_admin_editnews', ['id' => $news->getId()]))
             ->add('date', 'datetime')
             ->add('title', 'text')
             ->add('content','textarea')
@@ -91,7 +92,7 @@ class AdminController extends Controller
     /**
      * @Route("/news/delete/{id}")
      */
-    public function deleteAddressAction($id)
+    public function deleteNewsAction($id)
     {
         $news = $this
             ->getDoctrine()
@@ -106,6 +107,100 @@ class AdminController extends Controller
             ->getManager();
         $em->remove($news);
         $em->flush();
-        return $this->redirectToRoute('oldmotors_admin_allnews');
+        return $this->redirectToRoute('oldmotors_admin_deletenews');
     }
+
+    // Renovated motors
+    /**
+     * @Route("/renovatedMotors")
+     * @Template("OldMotorsBundle:Admin/RenovatedMotors:all.html.twig")
+     */
+    public function allRenovatedMotorsAction(Request $request)
+    {
+        $repository = $this->getDoctrine()->getRepository('OldMotorsBundle:RenovatedMotors');
+        $allMotors = $repository->findAll();
+
+        $motor = new RenovatedMotors();
+
+        $form = $this
+            ->createFormBuilder($motor)
+            ->add('renovationDate', 'datetime')
+            ->add('productionDate', 'datetime')
+            ->add('name', 'text')
+            ->add('mileage', 'integer')
+            ->add('color', 'text')
+            ->add('name', 'text')
+            ->add('description','textarea')
+            ->add('Dodaj', 'submit')
+            ->getForm();
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $motor = $form->getData();
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($motor);
+            $em->flush();
+
+            return $this->redirectToRoute('oldmotors_admin_allrenovatedmotors');
+        }
+        return array ( 'all' => $allMotors,'form' => $form->createView() );
+    }
+
+    /**
+     * @Route("/renovatedMotors/edit/{id}")
+     * @Template("OldMotorsBundle:Admin/RenovatedMotors:edit.html.twig")
+     */
+    public function editRenovatedMotorAction($id, Request $request)
+    {
+        $motor = $this
+            ->getDoctrine()
+            ->getRepository('OldMotorsBundle:RenovatedMotors')
+            ->find($id);
+        if(!$motor){
+            throw $this->createNotFoundException('Motor nie został znaleziony');
+        }
+        $form= $this
+            ->createFormBuilder($motor)
+            ->add('renovationDate', 'datetime')
+            ->add('productionDate', 'datetime')
+            ->add('name', 'text')
+            ->add('mileage', 'integer')
+            ->add('color', 'text')
+            ->add('name', 'text')
+            ->add('description','textarea')
+            ->add('Edytuj', 'submit')
+            ->getForm();
+        $form->handleRequest($request);
+        if ($form->isValid()){
+            $em = $this
+                ->getDoctrine()
+                ->getManager();
+            $em->flush();
+            return $this->redirectToRoute('oldmotors_admin_allrenovatedmotors');
+        }
+        return [ 'form' => $form->createView()];
+    }
+
+    /**
+     * @Route("/renovatedMotors/delete/{id}")
+     */
+    public function deleteRenovatedMotorsAction($id)
+    {
+        $motor = $this
+            ->getDoctrine()
+            ->getRepository('OldMotorsBundle:RenovatedMotors')
+            ->find($id);
+        if(!$motor){
+            throw $this
+                ->createNotFoundException('Nie znaleziono takiego motoru.');
+        }
+        $em = $this
+            ->getDoctrine()
+            ->getManager();
+        $em->remove($motor);
+        $em->flush();
+        return $this->redirectToRoute('oldmotors_admin_allrenovatedmotors');
+    }
+
+
 }
