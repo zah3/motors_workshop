@@ -10,31 +10,38 @@
         <p class="tel">telefon: +48 111 11 11</p>
         <p class="e-mail">e-mail: napraw.mnie@naprawiamy.pl </p>
     </div>
-    <form class="contact-form">
+    {{ form_start(form) }}
         <div class="row">
             <div class="col-md-4 inputForms">
-                <input type="text" placeholder="Imię"/>
+                {{ form_widget(form.name) }}
+                {{ form_errors(form.name) }}
             </div>
             <div class="col-md-4 inputForms">
-                <input type="text" placeholder="Nazwisko"/>
+                {{ form_widget(form.subject) }}
+                {{ form_errors(form.subject) }}
             </div>
             <div class="col-md-4 inputForms">
-                <input type="text" placeholder="Adres e-mail"/>
+                {{ form_widget(form.email) }}
+                {{ form_errors(form.email) }}
             </div>
         </div>
         <div class="row">
             <div class="col-md-12 inputForms">
-                <textarea type="text" placeholder="Treść wiadomości"></textarea>
+                {{ form_widget(form.message) }}
+                {{ form_errors(form.message) }}
             </div>
+        </div>
+        <div style="display:none">
+            {{ form_rest(form) }}
         </div>
         <div class="row">
             <div class="col-md-4"></div>
             <div class="col-md-4"></div>
             <div class="col-md-4">
-                <button> Wyślij </button>
+                <button type="submit"> Wyślij </button>
             </div>
         </div>
-    </form>
+    {{ form_end(form) }}
     <div class="map">
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2469.596404582047!2d19.53615631521126!3d51.7587033001193!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471bccb1c95c9e25%3A0x74880b0b2156656!2sDom+Kultury+502!5e0!3m2!1spl!2spl!4v1482094128833" allowfullscreen></iframe>
     </div>
