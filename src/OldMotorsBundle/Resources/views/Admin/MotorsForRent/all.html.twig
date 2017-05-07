@@ -1,0 +1,34 @@
+{% extends"OldMotorsBundle:Admin/index:index.html.twig"%}
+{% block title %}Administracja - na wynajem{% endblock %}
+{% block content%}
+    <div id="content">
+        <h2>Modyfikacja zakładki - "na sprzedaż"</h2>
+        <p>
+            Poniżej możesz dodać nowy element, a jeszcze niżej edytować bądź usuwać istniejące
+        </p>
+        <p style="width: 99vw"></p>
+    </div>
+    <div class="form">
+        {{ form(form) }}
+    </div>
+    <div class="forSale">
+        {% for motor in motors %}
+            {% if loop.index % 2 != 0 %}
+                <div class="row">
+            {% endif %}
+            <div class="col-md-6">
+                <div class="forSaleItem">
+                    <div class="forSaleTitle">{{ motor.name }}</div>
+                    <div class="forSaleImage" style="background-image:url('../img/1.jpg');"></div>
+                    <div class="forSaleDescription">{{ motor.description }}</div>
+                    <a href="/admin/motorsForRent/edit/{{ motor.id }}"><button class="forSaleButton" style="vertical-align:middle"><span>Edytuj</span></button></a>
+                    <a href="/admin/motorsForRent/delete/{{ motor.id }}"><button class="forSaleButton" style="vertical-align:middle"><span>Usuń</span></button></a>
+                </div>
+            </div>
+            {% if loop.index % 2 == 0 or loop.last %}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+{% endblock%}

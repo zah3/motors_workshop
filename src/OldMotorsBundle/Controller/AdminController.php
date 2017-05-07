@@ -2,6 +2,7 @@
 
 namespace OldMotorsBundle\Controller;
 
+use OldMotorsBundle\Entity\MotorsForRent;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -378,6 +379,98 @@ class AdminController extends Controller
         $em->remove($offer);
         $em->flush();
         return $this->redirectToRoute('oldmotors_admin_alloffer');
+    }
+
+    // motors for rent
+    /**
+     * @Route("/motorsForRent")
+     * @Template("OldMotorsBundle:Admin/MotorsForRent:all.html.twig")
+     */
+    public function allMotorsForRentAction(Request $request)
+    {
+        $repository = $this->getDoctrine()->getRepository('OldMotorsBundle:MotorsForRent');
+        $allMotors = $repository->findAll();
+
+        $motor = new MotorsForRent();
+
+        $form = $this
+            ->createFormBuilder($motor)
+            ->add('productionDate', 'datetime')
+            ->add('name', 'text')
+            ->add('mileage', 'integer')
+            ->add('price', 'integer')
+            ->add('color', 'text')
+            ->add('name', 'text')
+            ->add('description','textarea')
+            ->add('Dodaj', 'submit')
+            ->getForm();
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $motor = $form->getData();
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($motor);
+            $em->flush();
+
+            return $this->redirectToRoute('oldmotors_admin_allmotorsforrent');
+        }
+        return array ( 'motors' => $allMotors,'form' => $form->createView() );
+    }
+
+    /**
+     * @Route("/motorsForRent/edit/{id}")
+     * @Template("OldMotorsBundle:Admin/MotorsForRent:edit.html.twig")
+     */
+    public function editMotorsForRentAction($id, Request $request)
+    {
+        $motor = $this
+            ->getDoctrine()
+            ->getRepository('OldMotorsBundle:MotorsForRent')
+            ->find($id);
+        if(!$motor){
+            throw $this->createNotFoundException('Motor nie został znaleziony');
+        }
+        $form= $this
+            ->createFormBuilder($motor)
+            ->add('price', 'integer')
+            ->add('productionDate', 'datetime')
+            ->add('name', 'text')
+            ->add('mileage', 'integer')
+            ->add('color', 'text')
+            ->add('name', 'text')
+            ->add('description','textarea')
+            ->add('Edytuj', 'submit')
+            ->getForm();
+        $form->handleRequest($request);
+        if ($form->isValid()){
+            $em = $this
+                ->getDoctrine()
+                ->getManager();
+            $em->flush();
+            return $this->redirectToRoute('oldmotors_admin_allmotorsforrent');
+        }
+        return [ 'form' => $form->createView()];
+    }
+
+    /**
+     * @Route("/motorsForRent/delete/{id}")
+     */
+    public function deleteMotorsForRentAction($id)
+    {
+        $motor = $this
+            ->getDoctrine()
+            ->getRepository('OldMotorsBundle:MotorsForRent')
+            ->find($id);
+        if(!$motor){
+            throw $this
+                ->createNotFoundException('Nie znaleziono takiego motoru.');
+        }
+        $em = $this
+            ->getDoctrine()
+            ->getManager();
+        $em->remove($motor);
+        $em->flush();
+        return $this->redirectToRoute('oldmotors_admin_allmotorsforrent');
     }
 
 }

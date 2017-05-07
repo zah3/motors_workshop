@@ -28,11 +28,11 @@
             <li {{ (app.request.attributes.get('_route') == 'oldmotors_admin_allmotorsforsale' or app.request.attributes.get('_route') == 'oldmotors_admin_editmotorforsale') ? 'class="active"' }}>
                 <a href="/motorsForSale">Na sprzedaż</a>
             </li>
-            <li {{ (app.request.attributes.get('_route') == 'oldmotors_offer_all') ? 'class="active"' }}>
-                <a href="/offers">Usługi</a>
+            <li {{ (app.request.attributes.get('_route') == 'oldmotors_admin_alloffer' or app.request.attributes.get('_route') == 'oldmotors_admin_editoffer') ? 'class="active"' }}>
+                <a href="/admin/offers">Usługi</a>
             </li>
-            <li  {{ (app.request.attributes.get('_route') == 'oldmotors_motorsforrent_all' or app.request.attributes.get('_route') == 'oldmotors_motorsforrent_singlemotorforrent') ? 'class="active"' }}>
-                <a href="/motorsForRent">Wynajem</a>
+            <li  {{ (app.request.attributes.get('_route') == 'oldmotors_admin_allmotorsforrent' or app.request.attributes.get('_route') == 'oldmotors_admin_editmotorsforrent') ? 'class="active"' }}>
+                <a href="/admin/motorsForRent">Wynajem</a>
             </li>
         </ul>
         <div id="logoIndex" class="logo">
