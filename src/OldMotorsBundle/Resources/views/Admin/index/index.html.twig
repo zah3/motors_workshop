@@ -18,14 +18,14 @@
             <li {{ (app.request.attributes.get('_route') == 'oldmotors_admin_start') ? 'class="active"' }}>
                 <a href="/admin">Strona główna</a>
             </li>
-            <li {{ (app.request.attributes.get('_route') == 'oldmotors_admin_allnews') ? 'class="active"' }}>
+            <li {{ (app.request.attributes.get('_route') == 'oldmotors_admin_allnews' or app.request.attributes.get('_route') == 'oldmotors_admin_editnews ') ? 'class="active"' }}>
                 <a href="/admin/news">Aktualności</a>
             </li>
-            <li {{ (app.request.attributes.get('_route') == 'oldmotors_admin_allrenovatedmotors' or app.request.attributes.get('_route') == 'oldmotors_renovatedmotors_singlerenovatedmotor') ? 'class="active"' }}>
+            <li {{ (app.request.attributes.get('_route') == 'oldmotors_admin_allrenovatedmotors' or app.request.attributes.get('_route') == 'oldmotors_admin_editrenovatedmotor ') ? 'class="active"' }}>
                 <a href="/admin/renovatedMotors">Nasze prace</a>
             </li>
 
-            <li {{ (app.request.attributes.get('_route') == 'oldmotors_motorsforsale_all' or app.request.attributes.get('_route') == 'oldmotors_motorsforsale_singlemotorforsale') ? 'class="active"' }}>
+            <li {{ (app.request.attributes.get('_route') == 'oldmotors_admin_allmotorsforsale' or app.request.attributes.get('_route') == 'oldmotors_admin_editmotorforsale') ? 'class="active"' }}>
                 <a href="/motorsForSale">Na sprzedaż</a>
             </li>
             <li {{ (app.request.attributes.get('_route') == 'oldmotors_offer_all') ? 'class="active"' }}>
