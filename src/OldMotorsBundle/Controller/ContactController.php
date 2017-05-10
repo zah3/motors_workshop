@@ -10,8 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 class ContactController extends Controller
 {
     /**
-     * @Route("/contact"
-     * )
+     * @Route("/contact")
      * @Template()
      */
     public function contactAction(Request $request)
@@ -52,7 +51,7 @@ class ContactController extends Controller
             $message = \Swift_Message::newInstance()
                 ->setSubject($data['subject'])
                 ->setFrom('noreply@motors.com')
-                ->setTo($data['email'])
+                ->setTo('zstaniszewski@edu.cdv.pl')
                 ->setBody(
                     $this->renderView(
                         'OldMotorsBundle:Email:contact.html.twig',
