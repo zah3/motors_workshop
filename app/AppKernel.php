@@ -18,10 +18,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new OldMotorsBundle\OldMotorsBundle(),
             new FOS\UserBundle\FOSUserBundle(),
-            new Sonata\MediaBundle\SonataMediaBundle(),
-            new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
-            new JMS\SerializerBundle\JMSSerializerBundle(),
-            new Application\Sonata\MediaBundle\ApplicationSonataMediaBundle(),
+            new Vlabs\MediaBundle\VlabsMediaBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
